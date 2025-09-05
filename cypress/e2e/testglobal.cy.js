@@ -1,6 +1,7 @@
 const turkishPages = [
   "https://goit.global/tr/",
   "https://goit.global/tr/courses/",
+  "https://goit.global/tr/about/",
   "https://goit.global/tr/contact/",
 ];
 
@@ -16,20 +17,44 @@ describe("Перевірка турецької локалі на кирилиц
         let found = [];
 
         elements.forEach((el) => {
+          // Перевірка видимості
+          const style = window.getComputedStyle(el);
+          const isVisible =
+            style.display !== "none" &&
+            style.visibility !== "hidden" &&
+            style.opacity !== "0" &&
+            el.offsetParent !== null &&
+            el.getClientRects().length > 0;
+
+          if (!isVisible) return;
+
+          // Перевірка textContent
           const text = el.textContent.trim();
           if (text && cyrillicRegex.test(text)) {
             found.push({
               tag: el.tagName.toLowerCase(),
-              text: text.slice(0, 50), // показуємо перші 50 символів
+              type: "textContent",
+              text: text.slice(0, 50),
             });
-
-            // Підсвічуємо знайдений елемент червоною рамкою
-            el.style.border = "2px solid red";
           }
+
+          // Перевірка атрибутів alt, title, description
+          ["alt", "title", "description"].forEach((attr) => {
+            const val = el.getAttribute(attr);
+            if (val && cyrillicRegex.test(val)) {
+              found.push({
+                tag: el.tagName.toLowerCase(),
+                type: attr,
+                text: val.slice(0, 50),
+              });
+            }
+          });
         });
 
         if (found.length > 0) {
-          const report = found.map((f) => `<${f.tag}>: "${f.text}"`).join("\n");
+          const report = found
+            .map((f, idx) => `${idx + 1}. <${f.tag}> [${f.type}]: "${f.text}"`)
+            .join("\n");
           throw new Error(`На сторінці ${url} знайдено кирилицю:\n${report}`);
         }
       });
