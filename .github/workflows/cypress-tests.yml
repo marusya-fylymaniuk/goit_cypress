@@ -2,7 +2,7 @@ name: Run Cypress Tests
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 * * * *"
   push:
     branches:
       - main
@@ -71,7 +71,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "Cypress Test Result Marusya: ${{ job.status == 'success' && ':white_check_mark:' || ':x: <@U07LBAB1DDK> <U091W8NTTB9>' }}",
+              "text": "Cypress Test Result Marusya: ${{ job.status == 'success' && ':white_check_mark:' || ':x: <@U07LBAB1DDK> <U09EH6FKZ8Q>' }}",
                "blocks": [
                 {
                   "type": "section",
