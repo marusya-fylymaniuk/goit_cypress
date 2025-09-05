@@ -9,6 +9,40 @@ const turkishPages = [
   "https://goit.global/tr/newcomers/",
 ];
 
+// Функція для перевірки видимості елемента
+function isVisible(el) {
+  if (!el) return false;
+
+  const style = window.getComputedStyle(el);
+
+  // Базові CSS-властивості
+  if (
+    style.display === "none" ||
+    style.visibility === "hidden" ||
+    style.opacity === "0"
+  ) {
+    return false;
+  }
+
+  // Якщо елемент не має геометрії
+  if (el.offsetParent === null && el.getClientRects().length === 0) {
+    return false;
+  }
+
+  // ARIA-атрибут
+  if (el.getAttribute("aria-hidden") === "true") {
+    return false;
+  }
+
+  // Класи утиліти
+  const classList = el.classList;
+  if (classList.contains("hidden") || classList.contains("sr-only")) {
+    return false;
+  }
+
+  return true;
+}
+
 describe("Перевірка турецької локалі на кирилицю", () => {
   const cyrillicRegex = /[А-Яа-яЁёЇїІіЄєҐґ]+/g;
 
@@ -21,18 +55,9 @@ describe("Перевірка турецької локалі на кирилиц
         let found = [];
 
         elements.forEach((el) => {
-          // Перевірка видимості
-          const style = window.getComputedStyle(el);
-          const isVisible =
-            style.display !== "none" &&
-            style.visibility !== "hidden" &&
-            style.opacity !== "0" &&
-            el.offsetParent !== null &&
-            el.getClientRects().length > 0;
+          if (!isVisible(el)) return; // ✅ перевіряємо тільки видимі
 
-          if (!isVisible) return;
-
-          // Перевірка textContent
+          // Текст
           const text = el.textContent.trim();
           if (text) {
             const matches = text.match(cyrillicRegex);
@@ -47,7 +72,7 @@ describe("Перевірка турецької локалі на кирилиц
             }
           }
 
-          // Перевірка атрибутів alt, title, description
+          // Атрибути alt, title, description
           ["alt", "title", "description"].forEach((attr) => {
             const val = el.getAttribute(attr);
             if (val) {
