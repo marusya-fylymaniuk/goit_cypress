@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test:chrome:head": "npx cypress run -b chrome --headed",
-    "test:chrome": "npx cypress run -b chrome"
+    "test:chrome": "npx cypress run -b chrome",
+    "cypress:run": "cypress run"
   },
   "keywords": [],
   "author": "",
