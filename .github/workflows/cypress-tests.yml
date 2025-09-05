@@ -2,13 +2,13 @@ name: Run Cypress Tests
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: "*/5 * * * *"
   push:
     branches:
-      - main 
+      - main
   pull_request:
     branches:
-      - main 
+      - main
 
 jobs:
   cypress-run:
