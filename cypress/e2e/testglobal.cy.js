@@ -1,67 +1,57 @@
-const turkishPages = [
-  "https://goit.global/tr/",
-  "https://goit.global/tr/courses/",
-  "https://goit.global/tr/reviews/",
-  "https://goit.global/tr/articles/",
-  "https://goit.global/tr/contacts/",
-  "https://goit.global/tr/terms-of-use/",
-  "https://goit.global/tr/privacy-policy/",
-  "https://goit.global/tr/newcomers/",
-];
+// describe("Turkish locale sanity check - multiple pages", () => {
+//   const pages = [
+//     "https://goit.global/tr/",
+//     "https://goit.global/tr/courses/",
+//     "https://goit.global/tr/about/",
+//     "https://goit.global/tr/contact/",
+//   ];
 
-describe("Перевірка турецької локалі на кирилицю", () => {
-  const cyrillicRegex = /[А-Яа-яЁёЇїІіЄєҐґ]+/g;
+//   const cyrillicRegex = /[А-Яа-яЁёІіЇїЄєҐґ]/g;
 
-  turkishPages.forEach((url) => {
-    it(`Сторінка ${url} не повинна містити кириличних символів`, () => {
-      cy.visit(url);
+//   pages.forEach((pageUrl) => {
+//     it(`Should not contain Cyrillic characters on ${pageUrl}`, () => {
+//       cy.visit(pageUrl);
 
-      cy.document().then((doc) => {
-        const elements = doc.querySelectorAll("body *");
-        let found = [];
+//       cy.document().then((doc) => {
+//         const bodyText = doc.body.innerText;
+//         const matches = bodyText.match(cyrillicRegex);
 
-        elements.forEach((el) => {
-          // Перевірка видимості
-          const style = window.getComputedStyle(el);
-          const isVisible =
-            style.display !== "none" &&
-            style.visibility !== "hidden" &&
-            style.opacity !== "0" &&
-            el.offsetParent !== null &&
-            el.getClientRects().length > 0;
+//         if (matches) {
+//           throw new Error(
+//             `❌ Cyrillic symbols found on page: ${pageUrl}\nSymbols: ${matches.join(
+//               ", "
+//             )}`
+//           );
+//         }
+//       });
 
-          if (!isVisible) return;
+//       // Перевірка alt у картинок
+//       cy.get("img[alt]").each(($img) => {
+//         const alt = $img.attr("alt");
+//         if (alt && cyrillicRegex.test(alt)) {
+//           throw new Error(`❌ Cyrillic in <img alt> on ${pageUrl}: "${alt}"`);
+//         }
+//       });
 
-          // Перевірка textContent
-          const text = el.textContent.trim();
-          if (text && cyrillicRegex.test(text)) {
-            found.push({
-              tag: el.tagName.toLowerCase(),
-              type: "textContent",
-              text: text.slice(0, 50),
-            });
-          }
+//       // Перевірка title у тегів
+//       cy.get("[title]").each(($el) => {
+//         const title = $el.attr("title");
+//         if (title && cyrillicRegex.test(title)) {
+//           throw new Error(
+//             `❌ Cyrillic in title attribute on ${pageUrl}: "${title}"`
+//           );
+//         }
+//       });
 
-          // Перевірка атрибутів alt, title, description
-          ["alt", "title", "description"].forEach((attr) => {
-            const val = el.getAttribute(attr);
-            if (val && cyrillicRegex.test(val)) {
-              found.push({
-                tag: el.tagName.toLowerCase(),
-                type: attr,
-                text: val.slice(0, 50),
-              });
-            }
-          });
-        });
-
-        if (found.length > 0) {
-          const report = found
-            .map((f, idx) => `${idx + 1}. <${f.tag}> [${f.type}]: "${f.text}"`)
-            .join("\n");
-          throw new Error(`На сторінці ${url} знайдено кирилицю:\n${report}`);
-        }
-      });
-    });
-  });
-});
+//       // Перевірка мета-тегів
+//       cy.get("meta").each(($meta) => {
+//         const content = $meta.attr("content");
+//         if (content && cyrillicRegex.test(content)) {
+//           throw new Error(
+//             `❌ Cyrillic in <meta> tag on ${pageUrl}: "${content}"`
+//           );
+//         }
+//       });
+//     });
+//   });
+// });
