@@ -42,6 +42,7 @@ describe("Перевірка турецької локалі на кирилиц
                 type: "textContent",
                 text: text.slice(0, 50),
                 count: matches.length,
+                matches: matches.join(""),
               });
             }
           }
@@ -57,6 +58,7 @@ describe("Перевірка турецької локалі на кирилиц
                   type: attr,
                   text: val.slice(0, 50),
                   count: matches.length,
+                  matches: matches.join(""),
                 });
               }
             }
@@ -69,7 +71,9 @@ describe("Перевірка турецької локалі на кирилиц
               (f, idx) =>
                 `${idx + 1}. <${f.tag}> [${f.type}] (${
                   f.count
-                } кирил. символів): "${f.text}"`
+                } кирил. символів): "${f.text}"\n   Знайдені символи: "${
+                  f.matches
+                }"`
             )
             .join("\n");
           throw new Error(`На сторінці ${url} знайдено кирилицю:\n${report}`);
