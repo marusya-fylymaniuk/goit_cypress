@@ -71,7 +71,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "Cypress Test Results: ${{ job.status == 'success' && ':white_check_mark:' || ':x: <@U07LBAB1DDK> <@U07LZQL4BNY>' }}",
+              "text": "Cypress Test Result Marusya: ${{ job.status == 'success' && ':white_check_mark:' || ':x: <@U07LBAB1DDK> <U091W8NTTB9>' }}",
                "blocks": [
                 {
                   "type": "section",
