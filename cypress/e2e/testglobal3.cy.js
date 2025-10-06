@@ -1,6 +1,6 @@
 const turkishPages = [
   "https://goit.global/tr/",
-  // "https://goit.global/tr/courses/",
+  "https://goit.global/tr/courses/",
   // "https://goit.global/tr/reviews/",
   // "https://goit.global/tr/articles/",
   // "https://goit.global/tr/contacts/",
