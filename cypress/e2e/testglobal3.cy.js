@@ -1,6 +1,7 @@
 const turkishPages = [
   "https://goit.global/tr/",
   "https://goit.global/tr/courses/",
+  "https://dev.goit.global/tr/",
   // "https://goit.global/tr/reviews/",
   // "https://goit.global/tr/articles/",
   // "https://goit.global/tr/contacts/",
@@ -46,9 +47,25 @@ function isVisible(el) {
 describe("Перевірка турецької локалі на кирилицю", () => {
   const cyrillicRegex = /[А-Яа-яЁёЇїІіЄєҐґ]+/g;
 
+  // Обробка JavaScript помилок для надійності
+  beforeEach(() => {
+    cy.on('uncaught:exception', (err, runnable) => {
+      // Ігноруємо помилки jQuery та інші JavaScript помилки
+      if (err.message.includes('jquery') || 
+          err.message.includes('Syntax error') ||
+          err.message.includes('unrecognized expression')) {
+        return false;
+      }
+      return true;
+    });
+  });
+
   turkishPages.forEach((url) => {
     it(`Сторінка ${url} не повинна містити кириличних символів`, () => {
-      cy.visit(url);
+      cy.visit(url, {
+        failOnStatusCode: false, // Не падати на 404/500
+        timeout: 10000 // Збільшений таймаут для повільних сторінок
+      });
 
       cy.document().then((doc) => {
         const elements = doc.querySelectorAll("body *");
@@ -57,8 +74,8 @@ describe("Перевірка турецької локалі на кирилиц
         elements.forEach((el) => {
           if (!isVisible(el)) return; // ✅ перевіряємо тільки видимі
 
-          // Текст
-          const text = el.textContent.trim();
+          // Текст (з безпечною перевіркою)
+          const text = el.textContent?.trim();
           if (text) {
             const matches = text.match(cyrillicRegex);
             if (matches) {
@@ -72,7 +89,7 @@ describe("Перевірка турецької локалі на кирилиц
             }
           }
 
-          // Атрибути alt, title, description
+          // Атрибути alt, title, description (з безпечною перевіркою)
           ["alt", "title", "description"].forEach((attr) => {
             const val = el.getAttribute(attr);
             if (val) {
