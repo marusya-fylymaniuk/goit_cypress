@@ -1,14 +1,14 @@
 // // describe("Наш перший блок тестів", () => {
-// //   it("Тест відвідування сайту LMS", () => {
-// // // cypress code
-// //       cy.visit("https://www.edu.goit.global/account/login");
-// //       cy.get("#user_email").type("user888@gmail.com");
-// //       cy.get('#user_password').type("1234567890");
-// //       cy.get('[type="submit"]').should("have.text", "Log in");
-// //       cy.get('.eckniwg2').click();
-// //       cy.get('[id="go-to-the-course-homepage-widget"]').scrollIntoView().should("be.visible")
-// //   });
-// // });
+//   it("Тест відвідування сайту LMS", () => {
+// // cypress code
+//       cy.visit("https://www.edu.goit.global/account/login");
+//       cy.get("#user_email").type("user888@gmail.com");
+//       cy.get('#user_password').type("1234567890");
+//       cy.get('[type="submit"]').should("have.text", "Log in");
+//       cy.get('.eckniwg2').click();
+//       cy.get('[id="go-to-the-course-homepage-widget"]').scrollIntoView().should("be.visible")
+//   });
+// });
 // describe("login test", () => {
 //   it("admin login", () => {
 //     cy.visit("https://www.edu.goit.global/account/login");

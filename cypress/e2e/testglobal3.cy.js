@@ -1,13 +1,12 @@
 const turkishPages = [
   "https://goit.global/tr/",
   "https://goit.global/tr/courses/",
-  "https://dev.goit.global/tr/",
-  // "https://goit.global/tr/reviews/",
-  // "https://goit.global/tr/articles/",
-  // "https://goit.global/tr/contacts/",
-  // "https://goit.global/tr/terms-of-use/",
-  // "https://goit.global/tr/privacy-policy/",
-  // "https://goit.global/tr/newcomers/",
+  "https://goit.global/tr/reviews/",
+  "https://goit.global/tr/articles/",
+  "https://goit.global/tr/contacts/",
+  "https://goit.global/tr/terms-of-use/",
+  "https://goit.global/tr/privacy-policy/",
+  "https://goit.global/tr/newcomers/",
 ];
 
 // Функція для перевірки видимості елемента
@@ -49,11 +48,13 @@ describe("Перевірка турецької локалі на кирилиц
 
   // Обробка JavaScript помилок для надійності
   beforeEach(() => {
-    cy.on('uncaught:exception', (err, runnable) => {
+    cy.on("uncaught:exception", (err, runnable) => {
       // Ігноруємо помилки jQuery та інші JavaScript помилки
-      if (err.message.includes('jquery') || 
-          err.message.includes('Syntax error') ||
-          err.message.includes('unrecognized expression')) {
+      if (
+        err.message.includes("jquery") ||
+        err.message.includes("Syntax error") ||
+        err.message.includes("unrecognized expression")
+      ) {
         return false;
       }
       return true;
@@ -64,7 +65,7 @@ describe("Перевірка турецької локалі на кирилиц
     it(`Сторінка ${url} не повинна містити кириличних символів`, () => {
       cy.visit(url, {
         failOnStatusCode: false, // Не падати на 404/500
-        timeout: 10000 // Збільшений таймаут для повільних сторінок
+        timeout: 10000, // Збільшений таймаут для повільних сторінок
       });
 
       cy.document().then((doc) => {
