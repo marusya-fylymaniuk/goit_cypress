@@ -7,6 +7,10 @@ const turkishPages = [
   "https://goit.global/tr/terms-of-use/",
   "https://goit.global/tr/privacy-policy/",
   "https://goit.global/tr/newcomers/",
+  "https://goit.global/tr/courses/fullstack/",
+  "https://goit.global/tr/courses/data-analytics/",
+  "https://goit.global/tr/courses/qa/",
+  "https://goit.global/tr/courses/cybersecurity/",
 ];
 
 // Функція для перевірки видимості елемента
