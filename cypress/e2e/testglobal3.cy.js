@@ -3,7 +3,7 @@ const turkishPages = [
   "https://goit.global/tr/courses/",
   "https://goit.global/tr/reviews/",
   "https://goit.global/tr/articles/",
-  "https://goit.global/tr/contacts/",
+  // "https://goit.global/tr/contacts/",
   "https://goit.global/tr/terms-of-use/",
   "https://goit.global/tr/privacy-policy/",
   "https://goit.global/tr/newcomers/",
