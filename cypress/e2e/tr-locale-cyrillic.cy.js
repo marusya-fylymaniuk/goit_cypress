@@ -78,6 +78,7 @@ describe("Перевірка турецької локалі на кирилиц
 
         elements.forEach((el) => {
           if (!isVisible(el)) return; // ✅ перевіряємо тільки видимі
+          if (el.closest("[class*='iti__']")) return; // ✅ ігноруємо intl-tel-input dropdown
 
           // Текст (з безпечною перевіркою)
           const text = el.textContent?.trim();
