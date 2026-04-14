@@ -52,7 +52,7 @@ describe("Перевірка турецької локалі на кирилиц
 
   // Обробка JavaScript помилок для надійності
   beforeEach(() => {
-    cy.on("uncaught:exception", (err, runnable) => {
+    cy.on("uncaught:exception", (err) => {
       // Ігноруємо помилки jQuery та інші JavaScript помилки
       if (
         err.message.includes("jquery") ||
@@ -80,8 +80,12 @@ describe("Перевірка турецької локалі на кирилиц
           if (!isVisible(el)) return; // ✅ перевіряємо тільки видимі
           if (el.closest("[class*='iti__']")) return; // ✅ ігноруємо intl-tel-input dropdown
 
-          // Текст (з безпечною перевіркою)
-          const text = el.textContent?.trim();
+          // Тільки прямі текстові вузли (без дочірніх елементів)
+          const text = Array.from(el.childNodes)
+            .filter((node) => node.nodeType === Node.TEXT_NODE)
+            .map((node) => node.textContent)
+            .join("")
+            .trim();
           if (text) {
             const matches = text.match(cyrillicRegex);
             if (matches) {
