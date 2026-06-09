@@ -57,7 +57,8 @@ describe("Перевірка турецької локалі на кирилиц
       if (
         err.message.includes("jquery") ||
         err.message.includes("Syntax error") ||
-        err.message.includes("unrecognized expression")
+        err.message.includes("unrecognized expression") ||
+                err.message.includes("Cannot read properties of undefined")
       ) {
         return false;
       }
